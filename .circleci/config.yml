@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: minepicco/cci-aws-docker
+      - image: minepicco/cci-aws-docker:1.0
     steps:
       - checkout
       - setup_remote_docker:
