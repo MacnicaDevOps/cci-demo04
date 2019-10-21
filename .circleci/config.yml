@@ -4,7 +4,7 @@ jobs:
     docker:
       - image: circleci/php
     steps:
-      #- checkout
+      - checkout
       - setup_remote_docker:
           docker_layer_caching: false
       - run:
@@ -13,3 +13,12 @@ jobs:
       - run:
           name: get gip
           command: gip=`curl -X GET https://api.ipify.org` && echo "Global IPアドレス："$gip
+      - run:
+          name: build
+          command: docker build -t $image .
+      - run:
+          name: docker login
+          command: docker login -u $username -p $password #-e $mailaddress     
+      - run:
+          name: docker push
+          command: docker push $image
