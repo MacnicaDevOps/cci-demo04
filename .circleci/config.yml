@@ -3,14 +3,16 @@ jobs:
   build:
     docker:
       - image: minepicco/cci-aws-docker:1.0
-
     steps:
-      - checkout
-
+      #- checkout
+      - setup_remote_docker:
+          docker_layer_caching: false
       - run:
-          name: Greeting
-          command: echo Hello, world.
-
+          name: docker ps
+          command: docker ps -a
       - run:
-          name: Print the Current Time
-          command: date
+          name: ping test
+          command: ping google.com 
+      - run:
+          name: get gip
+          command: gip=`curl -X GET https://api.ipify.org` && echo "Global IPアドレス："$gip
