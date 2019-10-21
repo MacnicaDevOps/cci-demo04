@@ -8,9 +8,6 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: false
       - run:
-          name: docker ps
-          command: docker ps -a
-      - run:
           name: ping test
           command: ping google.com 
       - run:
