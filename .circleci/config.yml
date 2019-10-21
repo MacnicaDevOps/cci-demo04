@@ -8,8 +8,8 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: false
       - run:
-          name: ping test
-          command: ping google.com 
+          name: curl test
+          command: curl https://www.google.com 
       - run:
           name: get gip
           command: gip=`curl -X GET https://api.ipify.org` && echo "Global IPアドレス："$gip
