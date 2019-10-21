@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/php
+      - image: minepicco/cci-docker-aws:1.0
     steps:
       - checkout
       - setup_remote_docker:
@@ -13,15 +13,7 @@ jobs:
       - run:
           name: get gip
           command: gip=`curl -X GET https://api.ipify.org` && echo "Global IPアドレス："$gip
-      #- run:
-      #    name: get gip
-      #    command: aws help
       - run:
-          name: build
-          command: docker build -t $image .
-      - run:
-          name: docker login
-          command: docker login -u $username -p $password #-e $mailaddress     
-      - run:
-          name: docker push
-          command: docker push $image
+          name: get gip
+          command: aws help
+
