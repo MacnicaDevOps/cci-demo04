@@ -15,7 +15,7 @@ jobs:
           command: gip=`curl -X GET https://api.ipify.org` && echo "Global IPアドレス："$gip
       - run:
           name: build
-          command: docker build . -t $image
+          command: docker build -t $image .
       - run:
           name: docker login
           command: docker login -u $username -p $password #-e $mailaddress     
