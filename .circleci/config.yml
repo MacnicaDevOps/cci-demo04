@@ -15,13 +15,19 @@ jobs:
           command: gip=`curl -X GET https://api.ipify.org` && echo "Global IPアドレス："$gip
       - run:
           name: echo gip again
-          command: echo "Global IPアドレス："$gip
+          command: |
+            gip=`curl -X GET https://api.ipify.org`
+            echo "Global IPアドレス："$gip
       - run:
           name: add rule
-          command: aws ec2 authorize-security-group-ingress --group-name cci-test --protocol tcp --port 80 --cidr $gip"/32"
+          command: |
+          gip=`curl -X GET https://api.ipify.org`
+          aws ec2 authorize-security-group-ingress --group-name cci-test --protocol tcp --port 80 --cidr $gip"/32"
       - run:
           name: curl test
           command: curl http://ec2-18-191-70-3.us-east-2.compute.amazonaws.com
       - run:
           name: remove rule
-          command: aws ec2 authorize-security-group-ingress --group-name cci-test --protocol tcp --port 80 --cidr $gip"/32"
+          command: |
+          gip=`curl -X GET https://api.ipify.org`
+          aws ec2 authorize-security-group-ingress --group-name cci-test --protocol tcp --port 80 --cidr $gip"/32"
