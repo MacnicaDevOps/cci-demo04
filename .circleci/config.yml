@@ -8,6 +8,16 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: false
       - run:
+          name: aws configure
+          command: |
+          mkdir .aws
+          echo [default] > ./aws/config
+          echo "output = json" >> ./aws/config
+          echo "region = "$aws-region >> ./aws/config
+          echo [default] > ./aws/credentials
+          echo "aws_access_key_id = "$aws-keyid >> ./aws/credentials
+          echo "aws_secret_access_key = "$aws-key >> ./aws/credentials
+      - run:
           name: curl test
           command: curl http://ec2-18-191-70-3.us-east-2.compute.amazonaws.com 
       - run:
