@@ -10,7 +10,6 @@ jobs:
       - run:
           name: aws configure
           command: |
-          mkdir .aws
           echo [default] > ./aws/config
           echo "output = json" >> ./aws/config
           echo "region = "$aws_region >> ./aws/config
