@@ -21,11 +21,6 @@ jobs:
           name: get gip
           command: gip=`curl -X GET https://api.ipify.org` && echo "Global IPアドレス："$gip
       - run:
-          name: echo gip again
-          command: |
-            gip=`curl -X GET https://api.ipify.org`
-            echo "Global IPアドレス："$gip
-      - run:
           name: add rule
           command: |
             gip=`curl -X GET https://api.ipify.org`
