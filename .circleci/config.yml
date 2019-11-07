@@ -10,14 +10,10 @@ jobs:
       - run:
           name: aws configure
           command: |
-            mkdir .aws
-            echo "[default]" > .aws/config
-            echo "output = json" >> .aws/config
-            echo "region = "$aws_region >> .aws/config
-            echo "[default]" > .aws/credentials
-            echo "aws_access_key_id = "$aws_keyid >> .aws/credentials
-            echo "aws_secret_access_key = "$aws_key >> .aws/credentials
-            chmod 600 .aws/*
+            aws configure set region us-east-2
+            aws configure set aws_access_key_id $aws_keyid
+            aws configure set aws_secret_access_key $aws_key
+            aws configure set output json
       - run:
           name: curl test
           command: curl http://ec2-18-191-70-3.us-east-2.compute.amazonaws.com 
