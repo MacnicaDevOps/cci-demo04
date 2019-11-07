@@ -14,9 +14,9 @@ jobs:
             aws configure set aws_access_key_id $aws_keyid
             aws configure set aws_secret_access_key $aws_key
             aws configure set output json
-      - run:
-          name: curl test
-          command: curl http://ec2-18-191-70-3.us-east-2.compute.amazonaws.com 
+      #- run:
+      #    name: curl test
+      #    command: curl http://ec2-18-191-70-3.us-east-2.compute.amazonaws.com 
       - run:
           name: get gip
           command: gip=`curl -X GET https://api.ipify.org` && echo "Global IPアドレス："$gip
