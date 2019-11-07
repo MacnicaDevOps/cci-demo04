@@ -10,11 +10,10 @@ jobs:
       - run:
           name: aws configure
           command: |
-            touch ./aws/config
-            echo [default] >> ./aws/config
+            mkdir .aws
+            echo [default] > ./aws/config
             echo "output = json" >> ./aws/config
             echo "region = "$aws_region >> ./aws/config
-            touch ./aws/credentials
             echo [default] > ./aws/credentials
             echo "aws_access_key_id = "$aws_keyid >> ./aws/credentials
             echo "aws_secret_access_key = "$aws_key >> ./aws/credentials
