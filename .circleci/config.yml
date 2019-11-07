@@ -10,13 +10,13 @@ jobs:
       - run:
           name: aws configure
           command: |
-          echo [default] > ./aws/config
-          echo "output = json" >> ./aws/config
-          echo "region = "$aws_region >> ./aws/config
-          echo [default] > ./aws/credentials
-          echo "aws_access_key_id = "$aws_keyid >> ./aws/credentials
-          echo "aws_secret_access_key = "$aws_key >> ./aws/credentials
-          chmod 600 ./aws/*
+            echo [default] > ./aws/config
+            echo "output = json" >> ./aws/config
+            echo "region = "$aws_region >> ./aws/config
+            echo [default] > ./aws/credentials
+            echo "aws_access_key_id = "$aws_keyid >> ./aws/credentials
+            echo "aws_secret_access_key = "$aws_key >> ./aws/credentials
+            chmod 600 ./aws/*
       - run:
           name: curl test
           command: curl http://ec2-18-191-70-3.us-east-2.compute.amazonaws.com 
@@ -31,13 +31,13 @@ jobs:
       - run:
           name: add rule
           command: |
-          gip=`curl -X GET https://api.ipify.org`
-          aws ec2 authorize-security-group-ingress --group-name cci-test --protocol tcp --port 80 --cidr $gip"/32"
+            gip=`curl -X GET https://api.ipify.org`
+            aws ec2 authorize-security-group-ingress --group-name cci-test --protocol tcp --port 80 --cidr $gip"/32"
       - run:
           name: curl test
           command: curl http://ec2-18-191-70-3.us-east-2.compute.amazonaws.com
       - run:
           name: remove rule
           command: |
-          gip=`curl -X GET https://api.ipify.org`
-          aws ec2 authorize-security-group-ingress --group-name cci-test --protocol tcp --port 80 --cidr $gip"/32"
+            gip=`curl -X GET https://api.ipify.org`
+            aws ec2 authorize-security-group-ingress --group-name cci-test --protocol tcp --port 80 --cidr $gip"/32"
