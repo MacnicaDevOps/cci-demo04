@@ -33,3 +33,4 @@ jobs:
           command: |
             gip=`curl -X GET https://api.ipify.org`
             aws ec2 revoke-security-group-ingress --group-name cci-test --protocol tcp --port 80 --cidr $gip"/32" 
+
