@@ -21,3 +21,4 @@ jobs:
             aws ec2 authorize-security-group-ingress --group-name $sg_name --protocol tcp --port $port --cidr $gip"/32" 
             curl -k -u $cred -H 'Content-Type: application/json' -X GET https://$tw_url/api/v1/registry?imageID=$image_id  | jq
             aws ec2 revoke-security-group-ingress --group-name $sg_name --protocol tcp --port $port --cidr $gip"/32" 
+
