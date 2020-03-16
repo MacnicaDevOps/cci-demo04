@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: minepicco/cci-aws:latest
+      - image: macnicadevops/cci-build-aws:1.0
     steps:
       - checkout
       - setup_remote_docker:
@@ -10,27 +10,14 @@ jobs:
       - run:
           name: aws configure
           command: |
-            aws configure set region us-east-2
+            aws configure set region $region
             aws configure set aws_access_key_id $aws_keyid
             aws configure set aws_secret_access_key $aws_key
             aws configure set output json
-      #- run:
-      #    name: curl test
-      #    command: curl http://ec2-18-191-70-3.us-east-2.compute.amazonaws.com 
       - run:
-          name: get gip
-          command: gip=`curl -X GET https://api.ipify.org` && echo "Global IPアドレス："$gip
-      - run:
-          name: add rule
+          name: get 
           command: |
             gip=`curl -X GET https://api.ipify.org`
-            aws ec2 authorize-security-group-ingress --group-name cci-test --protocol tcp --port 80 --cidr $gip"/32" 
-      - run:
-          name: curl test
-          command: curl http://ec2-18-191-70-3.us-east-2.compute.amazonaws.com
-      - run:
-          name: remove rule
-          command: |
-            gip=`curl -X GET https://api.ipify.org`
-            aws ec2 revoke-security-group-ingress --group-name cci-test --protocol tcp --port 80 --cidr $gip"/32" 
-
+            aws ec2 authorize-security-group-ingress --group-name $sg_name --protocol tcp --port $port --cidr $gip"/32" 
+            curl -k -u $cred -H 'Content-Type: application/json' -X GET https://$tw_url/api/v1/registry?imageID=$image_id  | jq
+            aws ec2 revoke-security-group-ingress --group-name $sg_name --protocol tcp --port $port --cidr $gip"/32" 
