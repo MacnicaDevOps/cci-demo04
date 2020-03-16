@@ -15,7 +15,7 @@ jobs:
             aws configure set aws_secret_access_key $aws_key
             aws configure set output json
       - run:
-          name: get 
+          name: get registry scan result
           command: |
             gip=`curl -X GET https://api.ipify.org`
             aws ec2 authorize-security-group-ingress --group-name $sg_name --protocol tcp --port $port --cidr $gip"/32" 
